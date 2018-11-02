@@ -1,0 +1,16 @@
+{
+    "name": "crocodic-studio/laravel_db_packer",
+    "description": "Tool to pack the existing laravel database",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ferry Ariawan",
+            "email": "ferry@crocodic.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+		"xethron/migrations-generator":"2.*"
+	}
+}
