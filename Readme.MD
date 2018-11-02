@@ -1,4 +1,4 @@
-#Laravel DB Packer Tool
+# Laravel DB Packer Tool
 This tool develop to make auto migrations your all tables in database included the data.
 
 So you can easily make a collaboration wih your team in GIT, or you can publish your project easily without any sparate database file.
