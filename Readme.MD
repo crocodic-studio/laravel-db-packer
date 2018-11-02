@@ -5,7 +5,7 @@ So you can easily make a collaboration wih your team in GIT, or you can publish 
 
 ## How To Install
 1. ``composer require crocodic-studio/laravel-db-packer``
-1. Put this ``Crocodic\LaravelDBPacker::class`` to /config/app.php at ``Providers`` section.
+1. Put this ``Crocodic\LaravelDBPacker\LaravelDBPackerServiceProvider::class`` to /config/app.php at ``Providers`` section.
 
 ## How To Pack
 1. ``php artisan packer:pack``
