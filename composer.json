@@ -1,5 +1,5 @@
 {
-    "name": "crocodic-studio/laravel_db_packer",
+    "name": "crocodic-studio/laravel-db-packer",
     "description": "Tool to pack the existing laravel database",
     "type": "library",
     "license": "MIT",
