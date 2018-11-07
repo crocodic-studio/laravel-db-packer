@@ -8,11 +8,19 @@ So you can easily make a collaboration wih your team in GIT, or you can publish 
 1. Put this ``Crocodic\LaravelDBPacker\LaravelDBPackerServiceProvider::class`` to /config/app.php at ``Providers`` section.
 
 ## How To Pack
-1. ``php artisan packer:pack``
+``php artisan packer:pack``
+## Pack with table exception
+``php artisan packer:pack --ignoreTable="table1,table2,table3"``
+## Pack with table data exception
+``php artisan packer:pack --ignoreTableData="table1,table2,table3"``
 
-## How To Unpack
-1. ``php artisan packer:unpack``
+And you may combine two options.
+## How To Unpack 
+This command will restore tables and data
+
+``php artisan packer:unpack``
 
 ### Credits
 Laravel Migrations Generator 
+
 https://github.com/Xethron/migrations-generator

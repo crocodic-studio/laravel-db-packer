@@ -13,7 +13,7 @@ class Pack extends Command
      *
      * @var string
      */
-    protected $signature = 'packer:pack';
+    protected $signature = 'packer:pack {--ignoreTable} {--ignoreTableData}';
 
     /**
      * The console command description.
@@ -29,6 +29,21 @@ class Pack extends Command
      */
     public function handle()
     {
+        if($this->option("ignoreTable")) {
+            $tableExcept = explode(",",$this->option("ignoreTable"));
+        }else{
+            $tableExcept = [];
+        }
+
+        if($this->option("ignoreTableData")) {
+            $dataExcept = explode(",",$this->option("ignoreTableData"));
+        }else{
+            $dataExcept = [];
+        }
+
+        $dataExcept = array_merge(['cms_logs','migrations'],$dataExcept);
+
+
         $composer_path = '';
         if (file_exists(getcwd().'/composer.phar')) {
             $composer_path = '"'.PHP_BINARY.'" '.getcwd().'/composer.phar';
@@ -39,7 +54,9 @@ class Pack extends Command
         $tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
         $php_string = "";
         foreach($tables as $table) {
-            if($table == 'cms_logs' || $table == 'migrations') continue;
+
+            if(in_array($table, $dataExcept)) continue;
+
             $this->info("Create seeder for table : ".$table);
             $rows = DB::table($table)->get();
             $data = [];
@@ -79,14 +96,20 @@ class DefaultData extends Seeder {
             if(is_file($file))
                 unlink($file); // delete file
         }
-        Artisan::call('migrate:generate',['--no-interaction' => true]);
+
+        if($tableExcept) {
+            Artisan::call('migrate:generate',['--no-interaction' => true,'--ignore'=>implode(",",$tableExcept)]);
+        }else{
+            Artisan::call('migrate:generate',['--no-interaction' => true]);
+        }
+
 
         $this->info('Create seeder file');
-        file_put_contents(base_path('database/seeds/DefaultSeeder.php'), $seederFileTemplate);
+        file_put_contents(base_path('database/seeds/LaravelDBPackerSeeder.php'), $seederFileTemplate);
         $this->info('Dumping auto loads new file seeder !');
         $process = new Process($composer_path.' dump-autoload');
         $process->setWorkingDirectory(base_path())->run();
 
-        $this->comment('Pack the project has been finished!');
+        $this->info('Pack the table and data has been finished!. Next you only need to call "php artisan packer:unpack"');
     }
 }
