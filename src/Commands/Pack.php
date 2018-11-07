@@ -13,7 +13,7 @@ class Pack extends Command
      *
      * @var string
      */
-    protected $signature = 'packer:pack {--ignoreTable} {--ignoreTableData}';
+    protected $signature = 'packer:pack {--ignoreTable=} {--ignoreTableData=}';
 
     /**
      * The console command description.
